@@ -8,20 +8,12 @@ public class PanelManager : MonoBehaviour
 	[SerializeField] private GameObject parent;
 	[SerializeField] private GameObject popupBackground;
 	public List<PanelModel> panelList;
-	private Ball ball;
 
-
-	private void Start()
-	{
-		ball = FindObjectOfType<Ball>();
-		ball.OnLevelPassedEvent += ShowWinPanel;
-	}
-
-	private void ShowWinPanel()
+	public void ShowWinPanel()
 	{
 		ShowPanel("PopUpWin");
 	}
-	public void ShowPanel(string panelId)
+	private void ShowPanel(string panelId)
 	{
 		PanelModel panel = panelList.FirstOrDefault(panel => panel.panelName == panelId);
 

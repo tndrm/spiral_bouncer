@@ -3,21 +3,13 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-	public event Action<float> OnLevelProgressChangedEvent;
+	public event Action<int> OnLevelProgressChangedEvent;
 	public event Action OnLevelPassedEvent;
-
-	private int platformAmound;
-	private int defaultLevelProgress = 0;
-
-	public int levelProgress { get; private set; }
-	public float levelProgressNormalized => (float)levelProgress / platformAmound;
+	public int levelProgress = 0;
 
 	private void Awake()
 	{
-		platformAmound = FindObjectOfType<TowerBuilder>().platformAmound;
-
-		levelProgress = defaultLevelProgress;
-		OnLevelProgressChangedEvent?.Invoke(levelProgressNormalized);
+		OnLevelProgressChangedEvent?.Invoke(levelProgress);
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -26,7 +18,7 @@ public class Ball : MonoBehaviour
 		{		
 			other.GetComponentInParent<Platform>().Break();
 			levelProgress += 1;
-			OnLevelProgressChangedEvent?.Invoke(levelProgressNormalized);
+			OnLevelProgressChangedEvent?.Invoke(levelProgress);
 		}
 	}
 
